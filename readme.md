@@ -1,4 +1,5 @@
 As the name suggests there is a relationship between autumn and Spring. Autumn is
+
  * inspired by the successes of spring,
  * not trying to compete with spring,
  * motivated by the limitations of spring (i.e. pressure to maintain backwards compatibility)
@@ -6,6 +7,7 @@ As the name suggests there is a relationship between autumn and Spring. Autumn i
 Autumn is an alternative to the "traditional" java web/rest stack. Autumn is a helpful, opinionated, configurable, light web stack. Autumn fuses technologies together making programming fast and fun again. Autumn hopes to be as clean, crisp and cool as the autumn air.
 
 A traditional web stack might include:
+
   * Spring-core
   * Spring-webmvc
   * Jackson
@@ -18,6 +20,7 @@ A traditional web stack might include:
   * Spring-batch
 
 The Autumn web stack may attempt:
+
   * Guice | GuicyFruit
   * Jersey
   * Gson
@@ -30,6 +33,7 @@ The Autumn web stack may attempt:
   * Quartz
 
 Goals:
+
   * Sensical configuration (i.e. annotations) over ambiguous convention
   * run on GAE, heroku, cloudfoundry, openshift with minimal to no special config
   * Use annotation only servlet specs (@WebServlet, @WebFilter)
