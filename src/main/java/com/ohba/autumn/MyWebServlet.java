@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns="/helloworld")
 public class MyWebServlet extends HttpServlet {
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException{
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		res.getWriter().append("hello world!");
 	}
 
