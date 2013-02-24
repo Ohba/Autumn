@@ -6,9 +6,11 @@ import com.sun.jersey.api.core.PackagesResourceConfig;
 
 @ApplicationPath("/*")
 public class App extends PackagesResourceConfig {
+	
+	private static AutumnConfig myConfig = AutumnConfig.readFrom("config.json");
 
 	public App() {
-		super("com.ohba.autumn.rest");
+		super(myConfig.toPropertyBag());
 	}
 	
 }

@@ -1,0 +1,11 @@
+{
+
+	// what packages to scan for @Path resources
+	// no default currently set
+	resourcePackages: 'com.ohba.autumn.rest',
+	
+	// do you want to map POJOs to JSON and back?
+	// default: true
+	pojoMapping: true
+	
+}

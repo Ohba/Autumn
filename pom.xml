@@ -19,6 +19,30 @@
 			<artifactId>jersey-servlet</artifactId>
 			<version>1.17</version>
 		</dependency>
+		<dependency>
+			<!-- this brings in the popular 'jackson' (and the defunct 'jettison') -->
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.17</version>
+		</dependency>
+		<dependency>
+			<!-- even though this is provided with jersy-json
+				we also depend directly on it to read config files -->
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>0.11.6</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.9</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
