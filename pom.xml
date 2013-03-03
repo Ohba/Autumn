@@ -32,6 +32,11 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.2</version>
 		</dependency>
+                <dependency>
+                    <groupId>com.sun.jersey.contribs</groupId>
+                    <artifactId>jersey-guice</artifactId>
+                    <version>1.17.1</version>
+                </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

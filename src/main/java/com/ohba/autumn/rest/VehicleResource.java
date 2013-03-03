@@ -14,15 +14,15 @@ import com.ohba.autumn.pojo.Vehicle;
 @Produces("application/json")
 public class VehicleResource {
 
-	@GET
-	public Collection<Vehicle> getAll(){
-		return Arrays.asList(new Vehicle("Toyota","Tundra"), new Vehicle("Ford","Focus"), new Vehicle("Dodge","Dart"));
-	}
-	
-	@GET
-	@Path("/{make}")
-	public Vehicle getMake(@PathParam("make") String make){
-		return new Vehicle(make, null);
-	}
+    @GET
+    public Collection<Vehicle> getAll(){
+            return Arrays.asList(new Vehicle("Toyota","Tundra"), new Vehicle("Ford","Focus"), new Vehicle("Dodge","Dart"));
+    }
+
+    @GET
+    @Path("/{make}")
+    public Vehicle getMake(@PathParam("make") String make){
+            return new Vehicle(make, null);
+    }
 	
 }
