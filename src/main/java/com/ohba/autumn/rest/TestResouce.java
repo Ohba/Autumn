@@ -1,11 +1,12 @@
 package com.ohba.autumn.rest;
 
-import com.ohba.autumn.service.BogusService;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+
+import com.ohba.autumn.service.BogusService;
 
 @Path("/sup")
 @Produces("text/plain")
@@ -16,7 +17,7 @@ public class TestResouce {
     @GET
     public String get() {
         service.printToConsole("This is an injection test");
-        return "Sup!";
+        return "Sup! Service is "+service.toString();
     }
 	
     @GET

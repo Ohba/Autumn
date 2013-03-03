@@ -4,13 +4,16 @@
  */
 package com.ohba.autumn.service;
 
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 /**
  *
  * @author kradolferap
  */
+@ToString
+@NoArgsConstructor
 public class BogusService {
-
-    public BogusService(){}
     
     public void printToConsole(String text){
         System.out.println(text);

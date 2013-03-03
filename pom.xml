@@ -7,6 +7,9 @@
 	<artifactId>autumn</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
+	<properties>
+		<jersey.version>1.17.1</jersey.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -17,13 +20,13 @@
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-servlet</artifactId>
-			<version>1.17</version>
+			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
 			<!-- this brings in the popular 'jackson' (and the defunct 'jettison') -->
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-json</artifactId>
-			<version>1.17</version>
+			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
 			<!-- even though this is provided with jersy-json
@@ -35,7 +38,7 @@
                 <dependency>
                     <groupId>com.sun.jersey.contribs</groupId>
                     <artifactId>jersey-guice</artifactId>
-                    <version>1.17.1</version>
+                    <version>${jersey.version}</version>
                 </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
