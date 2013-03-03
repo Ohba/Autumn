@@ -1,5 +1,6 @@
 package com.ohba.autumn;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -20,17 +21,19 @@ public class AutumnConfig {
 	
 	// cant imagine why you would want to disable the POJO-JSON mapping
 	// im just testing the capability of the Config pattern here
-	// as well as the bility to set defaults
-
-	public static AutumnConfig readFrom(String configFilename) {
-		
-		// TODO expand capabilities to try the input in this order:
-		// getResourceAsStream(String)
-		// new URI(String)
-		//    if schema == file:, new File(URI)
-		//    if schema == http(s):, GET request the JSON
-		
+	// as well as the ability to set defaults
+	
+	public static AutumnConfig fromResource(String configFilename) {
 		InputStream configStream = AutumnConfig.class.getClassLoader().getResourceAsStream(configFilename);
+		return fromStream(configStream);
+	}
+	
+	public static AutumnConfig fromJsonString(String configJson) {
+		InputStream configStream = new ByteArrayInputStream(configJson.getBytes());
+		return fromStream(configStream);
+	}
+	
+	public static AutumnConfig fromStream(InputStream configStream) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			configureMapperFeatures(mapper);
