@@ -22,7 +22,7 @@ public class App extends GuiceServletContextListener {
 	// essentially the Guice stuff hears that a context is being loaded
 	// and bootstraps in all the Guice config
 
-	private static AutumnConfig myConfig = AutumnConfig.fromResource("config.json");
+	private static AutumnConfig myConfig = AutumnConfig.fromResource("autumn.json");
 
 	@Override
 	protected Injector getInjector() {

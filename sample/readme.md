@@ -1,0 +1,1 @@
+This is an example of how to use Autumn. Notice the files _/pom.xml_ and _/src/main/resources/autumn.json_. Also note that if you are OK with some of the defaults then all you really need is the `@Path` annotation in some classes that will be scanned for resources. scanning is set up in your _autumn.json_ `resourcePackages` field.
