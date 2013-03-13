@@ -10,7 +10,7 @@ Here is a comparison of a traditional web stack vs what the Autumn stack may loo
 
 | Specification   | Typical Stack       | Autumn Goodness          |
 |-----------------|---------------------|--------------------------|
-| JSR- 47 Logging | log4j               | logback/slf4j            |
+| JSR- 47 Logging | log4j*              | logback/slf4j*           |
 | JSR-222 JAXB    | jackson             | jackson or gson*         |
 | JSR-243 JDO2    |                     | datanucleus              |
 | JSR-250         | spring-security     | apache shiro             |
