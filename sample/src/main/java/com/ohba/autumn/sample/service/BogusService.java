@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ohba.autumn.service;
+package com.ohba.autumn.sample.service;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;

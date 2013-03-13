@@ -4,6 +4,7 @@
 	// no default currently set
 	// all packages in 1 string, seperate packages with ';'
 	// TODO support an array here
+	// default: undefined
 	resourcePackages: 'com.ohba.autumn.rest',
 	
 	// do you want to map POJOs to JSON and back?

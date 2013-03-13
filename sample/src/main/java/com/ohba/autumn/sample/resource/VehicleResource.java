@@ -1,4 +1,4 @@
-package com.ohba.autumn.rest;
+package com.ohba.autumn.sample.resource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import com.ohba.autumn.pojo.Vehicle;
+import com.ohba.autumn.sample.pojo.Vehicle;
 
 @Path("/cars")
 @Produces("application/json")
