@@ -37,11 +37,11 @@ public class AutumnConfigTest {
 	
 	@Test
 	public void shouldHavePackages() {
-		String configJson = "{resourcePackages:'com.ohba',pojoMapping:false}";
+		String configJson = "{pathPackage:'com.ohba',pojoMapping:false}";
 		AutumnConfig result = AutumnConfig.fromJsonString(configJson);
 		assertNotNull(result);
-		assertEquals(result.toInitParams().get(PackagesResourceConfig.PROPERTY_PACKAGES), "com.ohba");
-		assertEquals(result.toInitParams().get(JSONConfiguration.FEATURE_POJO_MAPPING), "false");
+		assertEquals("com.ohba", result.getJerseyInitParams().get(PackagesResourceConfig.PROPERTY_PACKAGES));
+		assertEquals("false", result.getJerseyInitParams().get(JSONConfiguration.FEATURE_POJO_MAPPING));
 		}
 
 }

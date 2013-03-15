@@ -16,8 +16,10 @@ import com.sun.jersey.api.json.JSONConfiguration;
 @Data
 public class AutumnConfig {
 	
-	private String resourcePackages;
+	private String pathPackage;
+	private String entityPackage;
 	private Boolean pojoMapping = true;
+	private Jdbc jdbc;
 	
 	// cant imagine why you would want to disable the POJO-JSON mapping
 	// im just testing the capability of the Config pattern here
@@ -68,11 +70,19 @@ public class AutumnConfig {
 		;
 	}
 
-	public Map<String, String> toInitParams() {
+	public Map<String, String> getJerseyInitParams() {
 		Map<String, String> propertyBag = new HashMap<>();
-		propertyBag.put(PackagesResourceConfig.PROPERTY_PACKAGES, resourcePackages);
+		propertyBag.put(PackagesResourceConfig.PROPERTY_PACKAGES, pathPackage);
 		propertyBag.put(JSONConfiguration.FEATURE_POJO_MAPPING, pojoMapping.toString());
 		return propertyBag;
+	}
+	
+	@Data
+	static class Jdbc{
+		private String driver;
+		private String url;
+		private String user;
+		private String password;
 	}
 
 }

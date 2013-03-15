@@ -4,10 +4,27 @@
  */
 package com.ohba.autumn;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.annotation.WebListener;
 
+import lombok.val;
+import lombok.extern.slf4j.Slf4j;
+
+import org.batoo.jpa.JPASettings;
+import org.batoo.jpa.core.BatooPersistenceProvider;
+import org.reflections.Reflections;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Provides;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
@@ -16,6 +33,7 @@ import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
  * 
  * @author kradolferap
  */
+@Slf4j
 @WebListener
 public class App extends GuiceServletContextListener {
 	// WebListener allows code to be executed upon hearing an event
@@ -36,8 +54,34 @@ public class App extends GuiceServletContextListener {
 			protected void configureServlets() {
 				// guice passes the init params to jersey as jersey comes up. 
 				// as any jersey config goes in there
-				serve("/*").with(GuiceContainer.class, myConfig.toInitParams());
+				serve("/*").with(GuiceContainer.class, myConfig.getJerseyInitParams());;
 			}
+			
+			@Provides
+			EntityManager provideEntityManager() {
+				val jdbc = myConfig.getJdbc();
+				log.info(jdbc.toString());
+				Map<String, String> properties = Maps.newHashMap();
+				properties.put(JPASettings.JDBC_DRIVER, jdbc.getDriver());
+				properties.put(JPASettings.JDBC_URL, jdbc.getUrl());
+				properties.put(JPASettings.JDBC_USER, jdbc.getUser());
+				properties.put(JPASettings.JDBC_PASSWORD, jdbc.getPassword());
+				//properties.put(BJPASettings.DDL, DDLMode.DROP.name());
+				
+				Reflections reflections = new Reflections(myConfig.getEntityPackage()); 
+				Set<Class<?>> entityTypes =  reflections.getTypesAnnotatedWith(Entity.class);
+				List<String> entityTypeNames = Lists.newArrayList();
+				for(Class<?> entityType : entityTypes) {
+					entityTypeNames.add(entityType.getName());
+				}
+				
+				log.info("found the following Entities:{}", entityTypeNames);
+				
+				EntityManagerFactory emf = new BatooPersistenceProvider().createEntityManagerFactory("batoo", properties , entityTypeNames.toArray(new String[0]));
+
+				return emf.createEntityManager();
+			}
+			
 		});
 	}
 
