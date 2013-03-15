@@ -2,7 +2,9 @@ package com.ohba.autumn.sample.resource;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
@@ -10,13 +12,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.batoo.jpa.JPASettings;
 import org.batoo.jpa.core.BatooPersistenceProvider;
 import org.postgresql.Driver;
+import org.reflections.Reflections;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ohba.autumn.sample.pojo.Vehicle;
 
+@Slf4j
 @Path("/cars")
 @Produces("application/json")
 public class VehicleResource {
@@ -32,10 +39,17 @@ public class VehicleResource {
 			properties.put(JPASettings.JDBC_USER, "zortzjzdfebuui");
 			properties.put(JPASettings.JDBC_PASSWORD, "v_ySlclXd0pSHbzWKEuzXAbPLo");
 			//properties.put(BJPASettings.DDL, DDLMode.DROP.name());
-
-			EntityManagerFactory emf = new BatooPersistenceProvider().createEntityManagerFactory("batoo", properties , new String[]{
-					Vehicle.class.getName(), //
-			});
+			
+			Reflections reflections = new Reflections("com.ohba.autumn.sample.pojo"); // get this from autumn config
+			Set<Class<?>> entityTypes =  reflections.getTypesAnnotatedWith(Entity.class);
+			List<String> entityTypeNames = Lists.newArrayList();
+			for(Class<?> entityType : entityTypes) {
+				entityTypeNames.add(entityType.getName());
+			}
+			
+			log.info("found the following Entities:{}", entityTypeNames);
+			
+			EntityManagerFactory emf = new BatooPersistenceProvider().createEntityManagerFactory("batoo", properties , entityTypeNames.toArray(new String[0]));
 
 			this.em = emf.createEntityManager();
 		}
