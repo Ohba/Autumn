@@ -4,11 +4,19 @@
 	// no default currently set
 	// all packages in 1 string, seperate packages with ';'
 	// TODO support an array here
-	// default: undefined
-	resourcePackages: 'com.ohba.autumn.rest',
+	pathPackage: 'com.example.app.rest',
+	entityPackage: 'com.example.app.pojo',
 	
 	// do you want to map POJOs to JSON and back?
 	// default: true
-	pojoMapping: true
+	pojoMapping: true,
+	
+	// your JDBC connection information
+	jdbc: {
+		driver: 'java.sql.Driver',
+		url:'jdbc:',
+		user:'mruser',
+		password:'sup3rs3cr3tp@$$w0rd'
+	}
 	
 }

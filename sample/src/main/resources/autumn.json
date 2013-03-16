@@ -1,5 +1,13 @@
 {
 
-	resourcePackages: 'com.ohba.autumn.sample.resource'
+	pathPackage: 'com.ohba.autumn.sample.resource',
+	entityPackage: 'com.ohba.autumn.sample.pojo',
+	
+	jdbc: {
+		driver: 'org.postgresql.Driver',
+		url:'jdbc:postgresql://ec2-54-243-234-148.compute-1.amazonaws.com:5432/d6bibaokcf97t3?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory',
+		user:'zortzjzdfebuui',
+		password:'v_ySlclXd0pSHbzWKEuzXAbPLo'
+	}
 	
 }
