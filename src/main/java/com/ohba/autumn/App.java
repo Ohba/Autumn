@@ -16,8 +16,10 @@ import javax.servlet.annotation.WebListener;
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
+import org.batoo.jpa.BJPASettings;
 import org.batoo.jpa.JPASettings;
 import org.batoo.jpa.core.BatooPersistenceProvider;
+import org.batoo.jpa.jdbc.DDLMode;
 import org.reflections.Reflections;
 
 import com.google.common.collect.Lists;
@@ -28,6 +30,7 @@ import com.google.inject.Provides;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
+import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 /**
  * 
@@ -54,7 +57,13 @@ public class App extends GuiceServletContextListener {
 			protected void configureServlets() {
 				// guice passes the init params to jersey as jersey comes up. 
 				// as any jersey config goes in there
-				serve("/*").with(GuiceContainer.class, myConfig.getJerseyInitParams());;
+				val initParams = myConfig.getJerseyInitParams();
+				
+				// add a few more params that cant be changed from the JSON
+				initParams.put(ServletContainer.FEATURE_FILTER_FORWARD_ON_404, "true");
+				
+				//serve("/*").with(GuiceContainer.class, initParams);
+				filter("/*").through(GuiceContainer.class, initParams);
 			}
 			
 			@Provides
@@ -66,7 +75,7 @@ public class App extends GuiceServletContextListener {
 				properties.put(JPASettings.JDBC_URL, jdbc.getUrl());
 				properties.put(JPASettings.JDBC_USER, jdbc.getUser());
 				properties.put(JPASettings.JDBC_PASSWORD, jdbc.getPassword());
-				//properties.put(BJPASettings.DDL, DDLMode.DROP.name());
+				properties.put(BJPASettings.DDL, DDLMode.DROP.name());
 				
 				Reflections reflections = new Reflections(myConfig.getEntityPackage()); 
 				Set<Class<?>> entityTypes =  reflections.getTypesAnnotatedWith(Entity.class);

@@ -2,6 +2,7 @@ package com.ohba.autumn;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -11,33 +12,28 @@ import javax.servlet.annotation.WebFilter;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.google.inject.servlet.GuiceFilter;
-
 @Slf4j
 @WebFilter("/*")
-public class DIFilter extends GuiceFilter {
-	// this allows our Dependency Injection to be used on 
-	// any endpoint that might be called
-	
+public class ZeldaOtherFilter implements Filter {
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		log.warn("_D_I_FILTER_ init");
-		super.init(filterConfig);
+		log.warn("_Zelda_OTHER_FILTER_ init");
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		log.warn("_D_I_FILTER_ doFilter");
+		log.warn("_Zelda_OTHER_FILTER_ doFilter");
 		
-		super.doFilter(request, response, chain);
+		chain.doFilter(request, response);
 		
 	}
 
 	@Override
 	public void destroy() {
-		log.warn("_D_I_FILTER_ destroy");
-		super.destroy();
+		log.warn("_Zelda_OTHER_FILTER_ destroy");
+		
 	}
 	
 }
