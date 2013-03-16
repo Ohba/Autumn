@@ -32,10 +32,6 @@ import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
-/**
- * 
- * @author kradolferap
- */
 @Slf4j
 @WebListener
 public class App extends GuiceServletContextListener {
