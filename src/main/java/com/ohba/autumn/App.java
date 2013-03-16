@@ -29,10 +29,6 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 
-/**
- * 
- * @author kradolferap
- */
 @Slf4j
 @WebListener
 public class App extends GuiceServletContextListener {
