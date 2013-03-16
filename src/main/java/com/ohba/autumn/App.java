@@ -28,6 +28,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
 import com.google.inject.servlet.GuiceServletContextListener;
+import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPDataSource;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
@@ -71,7 +73,9 @@ public class App extends GuiceServletContextListener {
 				properties.put(JPASettings.JDBC_URL, jdbc.getUrl());
 				properties.put(JPASettings.JDBC_USER, jdbc.getUser());
 				properties.put(JPASettings.JDBC_PASSWORD, jdbc.getPassword());
-				properties.put(BJPASettings.DDL, DDLMode.DROP.name());
+				properties.put(BJPASettings.DDL, DDLMode.CREATE.name());
+				properties.put(BJPASettings.DDL, DDLMode.UPDATE.name());
+				//properties.put(BJPASettings.DDL, DDLMode.DROP.name());
 				
 				Reflections reflections = new Reflections(myConfig.getEntityPackage()); 
 				Set<Class<?>> entityTypes =  reflections.getTypesAnnotatedWith(Entity.class);

@@ -29,17 +29,17 @@
 			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
-			<!-- even though this is provided with jersy-json
-				we also depend directly on it to read config files -->
+			<!-- even though this is provided with jersy-json we also depend directly 
+				on it to read config files -->
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.2</version>
 		</dependency>
-                <dependency>
-                    <groupId>com.sun.jersey.contribs</groupId>
-                    <artifactId>jersey-guice</artifactId>
-                    <version>${jersey.version}</version>
-                </dependency>
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-guice</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -55,20 +55,20 @@
 			<artifactId>persistence-api</artifactId>
 			<version>2.0</version>
 		</dependency>
-        <dependency>
-		    <groupId>postgresql</groupId>
-		    <artifactId>postgresql</artifactId>
-		    <version>9.1-901-1.jdbc4</version>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901-1.jdbc4</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.batoo.jpa</groupId>
-		    <artifactId>batoo-jpa</artifactId>
-		    <version>2.0.1.0-RTM</version>
+			<groupId>org.batoo.jpa</groupId>
+			<artifactId>batoo-jpa</artifactId>
+			<version>2.0.1.0-RTM</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.jolbox</groupId>
-		    <artifactId>bonecp</artifactId>
-		    <version>0.8.0-rc1</version>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>0.8.0-rc1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -76,15 +76,15 @@
 			<version>1.0.0.GA</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.reflections</groupId>
-		    <artifactId>reflections</artifactId>
-		    <version>0.9.8</version>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.8</version>
 		</dependency>
 		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <version>4.11</version>
-		    <scope>test</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
