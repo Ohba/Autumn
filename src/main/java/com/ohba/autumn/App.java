@@ -28,6 +28,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
 import com.google.inject.servlet.GuiceServletContextListener;
+import com.sun.jersey.api.core.PackagesResourceConfig;
+import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
@@ -39,7 +41,7 @@ public class App extends GuiceServletContextListener {
 	// essentially the Guice stuff hears that a context is being loaded
 	// and bootstraps in all the Guice config
 
-	private static AutumnConfig myConfig = AutumnConfig.fromResource("autumn.json");
+	private static AutumnConfig myConfig = AutumnConfig.fromResource("autumn.defaults.json","autumn.json");
 
 	@Override
 	protected Injector getInjector() {
@@ -51,21 +53,27 @@ public class App extends GuiceServletContextListener {
 			
 			@Override
 			protected void configureServlets() {
-				// guice passes the init params to jersey as jersey comes up. 
-				// as any jersey config goes in there
-				val initParams = myConfig.getJerseyInitParams();
+				log.info("AutumnConfig={}",myConfig);
+				/*
+				 * some of the `autumn.json` config settings are needed to configure jersey
+				 * guice passes the init params to jersey as jersey comes up. 
+				 */
+				Map<String,String> initParams = Maps.newHashMap();
+				initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, myConfig.getPathPackage());
+				initParams.put(JSONConfiguration.FEATURE_POJO_MAPPING, myConfig.getPojoMapping().toString());
 				
-				// add a few more params that cant be changed from the JSON
+				// add a few more params that cant be set in the JSON
+				// posible init params are here: http://jersey.java.net/apidocs/1.17/jersey/constant-values.html
 				initParams.put(ServletContainer.FEATURE_FILTER_FORWARD_ON_404, "true");
 				
-				//serve("/*").with(GuiceContainer.class, initParams);
+				// by filter-through (instead of serve-with) then requests that guice+jersey
+				// cant handle will be chained along to our default `StaticFileServlet.java`
 				filter("/*").through(GuiceContainer.class, initParams);
 			}
 			
 			@Provides
 			EntityManager provideEntityManager() {
 				val jdbc = myConfig.getJdbc();
-				log.info(jdbc.toString());
 				Map<String, String> properties = Maps.newHashMap();
 				properties.put(JPASettings.JDBC_DRIVER, jdbc.getDriver());
 				properties.put(JPASettings.JDBC_URL, jdbc.getUrl());

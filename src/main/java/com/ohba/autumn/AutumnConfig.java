@@ -3,50 +3,72 @@ package com.ohba.autumn;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
 
 import lombok.Data;
+import lombok.val;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.sun.jersey.api.core.PackagesResourceConfig;
-import com.sun.jersey.api.json.JSONConfiguration;
+import com.ohba.autumn.utils.NullAwareBeanUtils;
 
+/*
+ * default values for this class ARE NOT stored in the java,
+ * but in autumn.defaults.json
+ */
 @Data
 public class AutumnConfig {
 	
 	private String pathPackage;
 	private String entityPackage;
-	private Boolean pojoMapping = true;
+	private Boolean pojoMapping;
 	private Jdbc jdbc;
+	
+	@Data
+	static class Jdbc {
+		private String driver;
+		private String url;
+		private String user;
+		private String password;
+	}
 	
 	// cant imagine why you would want to disable the POJO-JSON mapping
 	// im just testing the capability of the Config pattern here
 	// as well as the ability to set defaults
 	
-	public static AutumnConfig fromResource(String configFilename) {
+	public static AutumnConfig fromResource(String defaultConfigFilename, String configFilename) {
+		InputStream defaultConfigStream = defaultConfigFilename==null ? null :
+			AutumnConfig.class.getClassLoader().getResourceAsStream(defaultConfigFilename);
 		InputStream configStream = AutumnConfig.class.getClassLoader().getResourceAsStream(configFilename);
-		return fromStream(configStream);
+		return fromStream(defaultConfigStream, configStream);
 	}
 	
-	public static AutumnConfig fromJsonString(String configJson) {
+	public static AutumnConfig fromJsonString(String defaultConfigJson, String configJson) {
+		InputStream defaultConfigStream = defaultConfigJson==null? null : 
+			new ByteArrayInputStream(defaultConfigJson.getBytes());
 		InputStream configStream = new ByteArrayInputStream(configJson.getBytes());
-		return fromStream(configStream);
+		return fromStream(defaultConfigStream, configStream);
 	}
 	
-	public static AutumnConfig fromStream(InputStream configStream) {
+	public static AutumnConfig fromStream(InputStream defaultConfigStream, InputStream configStream) {
+		ObjectMapper mapper = new ObjectMapper();
+		configureMapperFeatures(mapper);
 		try {
-			ObjectMapper mapper = new ObjectMapper();
-			configureMapperFeatures(mapper);
-			return mapper.readValue(configStream, AutumnConfig.class);
-		} catch (IOException e) {
+			val baseConfig = defaultConfigStream==null ? new AutumnConfig() :
+				mapper.readValue(defaultConfigStream, AutumnConfig.class);
+			val overlayConfig = mapper.readValue(configStream, AutumnConfig.class);
+			NullAwareBeanUtils.INSTANCE.copyProperties(baseConfig, overlayConfig);
+			return baseConfig;
+			// YES! return the baseConfig, because by now
+			// it has already been overlayed with the users values
+		} catch (IOException | IllegalAccessException | InvocationTargetException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	/**
-	 * hoping to make the reading of config.json file
+	 * we change some jackson features in an attempt
+	 * to make the reading of `autumn.json` file
 	 * a little more forgiving for newbies
 	 * @param mapper
 	 */
@@ -68,21 +90,6 @@ public class AutumnConfig {
 			.configure(org.codehaus.jackson.JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true)
 			
 		;
-	}
-
-	public Map<String, String> getJerseyInitParams() {
-		Map<String, String> propertyBag = new HashMap<>();
-		propertyBag.put(PackagesResourceConfig.PROPERTY_PACKAGES, pathPackage);
-		propertyBag.put(JSONConfiguration.FEATURE_POJO_MAPPING, pojoMapping.toString());
-		return propertyBag;
-	}
-	
-	@Data
-	static class Jdbc{
-		private String driver;
-		private String url;
-		private String user;
-		private String password;
 	}
 
 }

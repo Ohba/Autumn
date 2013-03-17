@@ -1,4 +1,7 @@
 {
+	// this file is more than just documentation
+	// it IS read at runtime and populate the DEFAULT autumn config
+	// the user's autumn.json values will be overlayed ontop of these
 
 	// what packages to scan for @Path resources
 	// no default currently set

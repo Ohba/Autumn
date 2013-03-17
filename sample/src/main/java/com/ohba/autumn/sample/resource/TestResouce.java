@@ -16,7 +16,7 @@ public class TestResouce {
     
     @GET
     public String get() {
-        service.printToConsole("This is an injection test");
+        service.message("This is an injection test");
         return "Sup! Service is "+service.toString();
     }
 	

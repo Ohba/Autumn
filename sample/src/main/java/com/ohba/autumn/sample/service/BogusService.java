@@ -6,16 +6,18 @@ package com.ohba.autumn.sample.service;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
  * @author kradolferap
  */
+@Slf4j
 @ToString
 @NoArgsConstructor
 public class BogusService {
     
-    public void printToConsole(String text){
-        System.out.println(text);
+    public void message(String text){
+        log.info(text);
     }
 }

@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lombok.extern.slf4j.Slf4j;
 import net.balusc.webapp.FileServlet;
 
-@Slf4j
+/*
+ * This is essentially our "Default Servlet"
+ * that gets hit after all the guice+jersey filters give up
+ */
 @WebServlet(urlPatterns={"/*"},initParams= {@WebInitParam(name="basePath",value="public")})
 public class StaticFileServlet extends FileServlet {
 	
@@ -20,31 +22,28 @@ public class StaticFileServlet extends FileServlet {
 	 * 
 	 * FileServlet is from http://balusc.blogspot.com/2009/02/fileservlet-supporting-resume-and.html
 	 * 
-	 * Also, for Servlet 3.0 Spec with heavy use of annotations we found that we need to do this:
-	 * From: http://www.java.net/node/700651
-	 * agksmehx: "I am facing another problem. I have a @WebServlet("") and a @WebFilter(urlPatterns = {"", "/", "/*"}, asyncSupported = true)
-	 * 				But the filter is not being invoked for the servlet :-("
-	 * swchan2: "Look like there may be an issue here. As a workaround, one can associate a filter with a servlet by name as follows:
-	 * 				@WebFilter(servletNames={"myservlet"}) @WebServlet(name="myservlet", urlPatterns={""})"
+	 * patterns for how to use Jersey as a filter within guice (instead of a servlet) and how to configure jersey
+	 * to forward along the filter chain requests it cant handle were gleaned from this article:
+	 * http://java.net/projects/jersey/lists/users/archive/2010-08/message/196
 	 * 
-	 * you will notice that pattern followed between this servlet and the DIFilter.java
+	 * you will see some of that implemented in App.java
 	 */
 	
 	@Override
 	public void init() throws ServletException {
-		log.warn("in init, basePath is: {} :: {}", getInitParameter("basePath"), getServletContext().getRealPath(getInitParameter("basePath")) );
+		// no code but we MAY need to inject logic here someday
 		super.init();
 	}
 	
 	@Override
 	protected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		log.warn(request.getPathInfo());
+		// no code but we MAY need to inject logic here someday
 		super.doHead(request, response);
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		log.warn(request.getPathInfo());
+		// no code but we MAY need to inject logic here someday
 		super.doGet(request, response);
 	}
 	
