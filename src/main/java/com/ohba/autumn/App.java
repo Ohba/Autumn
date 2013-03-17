@@ -79,7 +79,9 @@ public class App extends GuiceServletContextListener {
 				properties.put(JPASettings.JDBC_URL, jdbc.getUrl());
 				properties.put(JPASettings.JDBC_USER, jdbc.getUser());
 				properties.put(JPASettings.JDBC_PASSWORD, jdbc.getPassword());
-				properties.put(BJPASettings.DDL, DDLMode.DROP.name());
+				properties.put(BJPASettings.DDL, DDLMode.CREATE.name());
+				properties.put(BJPASettings.DDL, DDLMode.UPDATE.name());
+				//properties.put(BJPASettings.DDL, DDLMode.DROP.name());
 				
 				Reflections reflections = new Reflections(myConfig.getEntityPackage()); 
 				Set<Class<?>> entityTypes =  reflections.getTypesAnnotatedWith(Entity.class);
