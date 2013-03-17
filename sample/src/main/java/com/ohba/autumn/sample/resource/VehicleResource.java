@@ -4,11 +4,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+
+import lombok.val;
+
+import org.apache.commons.lang.math.RandomUtils;
 
 import com.ohba.autumn.sample.pojo.Vehicle;
 
@@ -18,10 +24,20 @@ public class VehicleResource {
 	
 	@Inject
 	private EntityManager em;
-
+	
     @GET
     public List<Vehicle> queryAll(){
             return em.createQuery("SELECT v FROM Vehicle v", Vehicle.class).getResultList();
+    }
+    
+    @POST
+    public Vehicle create(Vehicle newCar){
+    	val rid = String.valueOf(RandomUtils.nextLong()+10000).substring(0, 5);
+    	newCar.setId(Long.valueOf(rid));
+    	em.getTransaction().begin();
+		em.persist(newCar);
+		em.getTransaction().commit();
+		return newCar;
     }
 
     @GET
@@ -29,6 +45,14 @@ public class VehicleResource {
     public Vehicle findById(@PathParam("id") Long id){
             return em.find(Vehicle.class, id);
     }
+    
+	@DELETE
+	@Path("/{id}")
+	public void delete(@PathParam("id") Long id) {
+		em.getTransaction().begin();
+		em.remove(em.find(Vehicle.class, id));
+		em.getTransaction().commit();
+	}
     
 	@GET
 	@Path("/make")

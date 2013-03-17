@@ -1,0 +1,49 @@
+<!DOCTYPE html!>
+<html>
+<head>
+<link
+	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css"
+	rel="stylesheet">
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"
+	rel="stylesheet">
+</head>
+<body class="container" ng-app="myApp">
+	<div class="page-header">
+		<h1>
+			autumn-sample <small>the super terrific happy hour</small>
+		</h1>
+	</div>
+	<table class="table table-striped" ng-controller="CarCtrl">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>Make</th>
+				<th>Model</th>
+				<th>&nbsp;</th>
+			</tr>
+			<tr>
+				<form name="newCarForm" ng-submit="create()">
+					<th><input type="text" class="input-small" ng-model="newCar.id" disabled name="id" placeholder="id"/></th>
+					<th><input type="text" class="input-medium" ng-model="newCar.make" required name="Make" placeholder="Make"/></th>
+					<th><input type="text" class="input-medium" ng-model="newCar.model" required name="Model" placeholder="Model" /></th>
+					<th><button type="submit" class="btn btn-primary">Save</button></th>
+				</form>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="car in cars">
+				<td>{{car.id}}</td>
+				<td>{{car.make}}</td>
+				<td>{{car.model}}</td>
+				<td><a href="" ng-click="remove(car)"><i class="icon-trash"></i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
+	<script src="js/myNG.js"></script>
+</body>
+</html>
