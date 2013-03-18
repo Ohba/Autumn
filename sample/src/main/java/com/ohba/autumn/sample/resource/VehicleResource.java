@@ -12,10 +12,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import lombok.val;
-
-import org.apache.commons.lang.math.RandomUtils;
-
 import com.ohba.autumn.sample.pojo.Vehicle;
 
 @Path("/cars")
@@ -32,8 +28,6 @@ public class VehicleResource {
     
     @POST
     public Vehicle create(Vehicle newCar){
-    	val rid = String.valueOf(RandomUtils.nextLong()+10000).substring(0, 5);
-    	newCar.setId(Long.valueOf(rid));
     	em.getTransaction().begin();
 		em.persist(newCar);
 		em.getTransaction().commit();
@@ -57,8 +51,8 @@ public class VehicleResource {
 	@GET
 	@Path("/make")
 	public Vehicle persist(@QueryParam("id") Long id,
-			@QueryParam("make") String make, @QueryParam("model") String model) {
-		Vehicle car = new Vehicle(id, make, model);
+			@QueryParam("make") String make, @QueryParam("model") String model, @QueryParam("color") String color) {
+		Vehicle car = new Vehicle(id, make, model, color);
 		em.getTransaction().begin();
 		em.persist(car);
 		em.getTransaction().commit();
