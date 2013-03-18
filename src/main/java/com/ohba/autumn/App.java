@@ -4,29 +4,15 @@
  */
 package com.ohba.autumn;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.servlet.annotation.WebListener;
 
-import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
-import org.batoo.jpa.BJPASettings;
-import org.batoo.jpa.JPASettings;
-import org.batoo.jpa.core.BatooPersistenceProvider;
-import org.batoo.jpa.jdbc.DDLMode;
-import org.reflections.Reflections;
-
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Provides;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
@@ -66,34 +52,11 @@ public class App extends GuiceServletContextListener {
 				// posible init params are here: http://jersey.java.net/apidocs/1.17/jersey/constant-values.html
 				initParams.put(ServletContainer.FEATURE_FILTER_FORWARD_ON_404, "true");
 				
+				//install(new JpaModule());
+				
 				// by filter-through (instead of serve-with) then requests that guice+jersey
 				// cant handle will be chained along to our default `StaticFileServlet.java`
 				filter("/*").through(GuiceContainer.class, initParams);
-			}
-			
-			@Provides
-			EntityManager provideEntityManager() {
-				val jdbc = myConfig.getJdbc();
-				Map<String, String> properties = Maps.newHashMap();
-				properties.put(JPASettings.JDBC_DRIVER, jdbc.getDriver());
-				properties.put(JPASettings.JDBC_URL, jdbc.getUrl());
-				properties.put(JPASettings.JDBC_USER, jdbc.getUser());
-				properties.put(JPASettings.JDBC_PASSWORD, jdbc.getPassword());
-				properties.put(BJPASettings.DDL, DDLMode.CREATE.name());
-				//properties.put(BJPASettings.DDL, DDLMode.UPDATE.name());
-				//properties.put(BJPASettings.DDL, DDLMode.DROP.name());
-				Reflections reflections = new Reflections(myConfig.getEntityPackage()); 
-				Set<Class<?>> entityTypes =  reflections.getTypesAnnotatedWith(Entity.class);
-				List<String> entityTypeNames = Lists.newArrayList();
-				for(Class<?> entityType : entityTypes) {
-					entityTypeNames.add(entityType.getName());
-				}
-				
-				log.info("found the following Entities:{}", entityTypeNames);
-				
-				EntityManagerFactory emf = new BatooPersistenceProvider().createEntityManagerFactory("batoo", properties , entityTypeNames.toArray(new String[0]));
-
-				return emf.createEntityManager();
 			}
 			
 		});

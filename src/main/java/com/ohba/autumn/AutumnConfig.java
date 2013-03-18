@@ -25,7 +25,7 @@ public class AutumnConfig {
 	private Jdbc jdbc;
 	
 	@Data
-	static class Jdbc {
+	public static class Jdbc {
 		private String driver;
 		private String url;
 		private String user;
@@ -77,7 +77,7 @@ public class AutumnConfig {
 		
 			// when storing into an Array if you only get a String automatically place it in an Array
 			.configure(org.codehaus.jackson.map.DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
-		
+
 			// allow comments in the JSON
 			.configure(org.codehaus.jackson.JsonParser.Feature.ALLOW_COMMENTS, true)
 			
@@ -87,8 +87,7 @@ public class AutumnConfig {
 			
 			// allow NO quotes around field names,
 			// more javascript like
-			.configure(org.codehaus.jackson.JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true)
-			
+			.configure(org.codehaus.jackson.JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true)			
 		;
 	}
 

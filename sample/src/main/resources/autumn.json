@@ -1,5 +1,4 @@
 {
-
 	pathPackage: 'com.ohba.autumn.sample.resource',
 	entityPackage: 'com.ohba.autumn.sample.pojo',
 	
