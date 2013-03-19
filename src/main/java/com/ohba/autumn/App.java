@@ -14,6 +14,7 @@ import com.google.common.collect.Maps;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
+import com.ohba.autumn.modules.JpaModule;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.guice.JerseyServletModule;
@@ -52,13 +53,12 @@ public class App extends GuiceServletContextListener {
 				// posible init params are here: http://jersey.java.net/apidocs/1.17/jersey/constant-values.html
 				initParams.put(ServletContainer.FEATURE_FILTER_FORWARD_ON_404, "true");
 				
-				//install(new JpaModule());
+				install(new JpaModule());
 				
 				// by filter-through (instead of serve-with) then requests that guice+jersey
 				// cant handle will be chained along to our default `StaticFileServlet.java`
 				filter("/*").through(GuiceContainer.class, initParams);
 			}
-			
 		});
 	}
 

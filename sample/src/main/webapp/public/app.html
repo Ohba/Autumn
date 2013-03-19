@@ -27,6 +27,7 @@
 					<th><input type="text" class="input-small" ng-model="newCar.id" disabled name="id" placeholder="id"/></th>
 					<th><input type="text" class="input-medium" ng-model="newCar.make" required name="Make" placeholder="Make"/></th>
 					<th><input type="text" class="input-medium" ng-model="newCar.model" required name="Model" placeholder="Model" /></th>
+					<th><input type="text" class="input-medium" ng-model="newCar.color" required name="Color" placeholder="Color" /></th>
 					<th><button type="submit" class="btn btn-primary">Save</button></th>
 				</form>
 			</tr>
@@ -36,6 +37,7 @@
 				<td>{{car.id}}</td>
 				<td>{{car.make}}</td>
 				<td>{{car.model}}</td>
+				<td>{{car.color}}</td>
 				<td><a href="" ng-click="remove(car)"><i class="icon-trash"></i></a></td>
 			</tr>
 		</tbody>

@@ -1,6 +1,7 @@
 package com.ohba.autumn.sample.pojo;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -13,10 +14,12 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Vehicle {
 	
-	@Id
+	@Id @GeneratedValue
 	private Long id;
 
 	private String make;
 	private String model;
+	
+	private String color;
 	
 }
