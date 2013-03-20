@@ -15,7 +15,7 @@ public class NullAwareBeanUtilsTest {
 	@Test
 	public void shouldNotCopyNull() throws IllegalAccessException, InvocationTargetException {
 		
-		val one = new TestBean(), two = new TestBean();
+		TestBean one = new TestBean(), two = new TestBean();
 		one.setFirstname("Danny");
 		two.setLastname("Langford");
 
