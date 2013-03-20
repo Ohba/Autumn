@@ -35,7 +35,7 @@
 				on it to read config files -->
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.2</version>
+			<version>1.9.12</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey.contribs</groupId>
