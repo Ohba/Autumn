@@ -53,6 +53,8 @@ public class App extends GuiceServletContextListener {
 				// posible init params are here: http://jersey.java.net/apidocs/1.17/jersey/constant-values.html
 				initParams.put(ServletContainer.FEATURE_FILTER_FORWARD_ON_404, "true");
 				
+				//Adding JPA related module. This just helps separate concerns in the code.
+				//All JPA related injections will go in that module.
 				install(new JpaModule());
 				
 				// by filter-through (instead of serve-with) then requests that guice+jersey

@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.validation.ValidatorFactory;
 
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +56,7 @@ public class JpaModule extends AbstractModule{
 		log.info("found the following Entities:{}", entityTypeNames);
 		
 		EntityManagerFactory emf = new AutumnPersistenceProvider().createEntityManagerFactory("autumn", properties, entityTypeNames);
-
+		
 		return emf.createEntityManager();
 	}
 
