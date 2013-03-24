@@ -1,25 +1,24 @@
 <!DOCTYPE html!>
 <html>
 <head>
-<link
-	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css"
-	rel="stylesheet">
-<link
-	href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"
-	rel="stylesheet">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
 </head>
-<body class="container" ng-app="myApp">
+<body class="container" ng-app="myApp" ng-controller="CarCtrl">
 	<div class="page-header">
 		<h1>
 			autumn-sample <small>the super terrific happy hour</small>
 		</h1>
 	</div>
-	<table class="table table-striped" ng-controller="CarCtrl">
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>id</th>
 				<th>Make</th>
 				<th>Model</th>
+                <th>Color</th>
 				<th>&nbsp;</th>
 			</tr>
 			<tr>
@@ -42,10 +41,9 @@
 			</tr>
 		</tbody>
 	</table>
-	<script
-		src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
-	<script
-		src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
+    <button class="btn btn-primary" ng-click="reload()"><i class="icon-repeat"></i> Reload</button>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular-resource.min.js"></script>
 	<script src="js/myNG.js"></script>
 </body>
 </html>
