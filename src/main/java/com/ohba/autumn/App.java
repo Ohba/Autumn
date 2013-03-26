@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.annotation.WebListener;
 
+import org.apache.bval.guice.ValidationModule;
+
 import lombok.extern.slf4j.Slf4j;
 
 import com.google.common.collect.Maps;
@@ -56,6 +58,8 @@ public class App extends GuiceServletContextListener {
 				//Adding JPA related module. This just helps separate concerns in the code.
 				//All JPA related injections will go in that module.
 				install(new JpaModule());
+				
+				install(new ValidationModule());
 				
 				// by filter-through (instead of serve-with) then requests that guice+jersey
 				// cant handle will be chained along to our default `StaticFileServlet.java`
