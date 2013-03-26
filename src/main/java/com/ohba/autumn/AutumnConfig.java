@@ -24,6 +24,8 @@ public class AutumnConfig {
 	private Boolean pojoMapping;
 	private Jdbc jdbc;
 	
+	// TODO: determine how to add no-sql connections
+	
 	@Data
 	public static class Jdbc {
 		private String driver;

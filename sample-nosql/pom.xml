@@ -4,7 +4,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ohba.autumn</groupId>
-	<artifactId>autumn-sample-jdbc</artifactId>
+	<artifactId>autumn-sample-nosql</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
         <properties>

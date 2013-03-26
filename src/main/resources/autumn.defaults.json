@@ -21,5 +21,7 @@
 		user:'mruser',
 		password:'sup3rs3cr3tp@$$w0rd'
 	}
+
+// TODO allow for no-sql configuration also
 	
 }
