@@ -7,35 +7,45 @@
 	<artifactId>autumn-sample-jdbc</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
-        <properties>
-            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 	<dependencies>
+	
 		<dependency>
 			<groupId>com.ohba.autumn</groupId>
 			<artifactId>autumn-core</artifactId>
 			<version>0.0.1</version>
 		</dependency>
+		
+		<!-- we happen to be using postgresql for this sample -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901-1.jdbc4</version>
+		</dependency>
+		
 		<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
 		    <version>4.11</version>
 		    <scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-                                <version>2.3</version>
+				<version>2.3</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-                                <version>3.0</version>
+				<version>3.0</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>

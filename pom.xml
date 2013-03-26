@@ -13,17 +13,52 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	<dependencies>
-		<dependency>
+	
+		<dependency> <!-- JSR-315 Servlet - API -->
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
-			<!-- <scope>provided</scope> -->
+			<scope>provided</scope>
 		</dependency>
-		<dependency>
+		<dependency> <!-- JSR-315 Servlet - IMPL -->
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-servlet</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
+		
+		<dependency> <!-- JSR-330 DI - API -->
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency> <!-- JSR-330 DI - IMPL -->
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0</version>
+		</dependency>
+            
+		<dependency> <!-- JSR-317 JPA2 - API -->
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>2.0.4.v201112161009</version>
+		</dependency>
+		<dependency> <!-- JSR-317 JPA2 - IMPL -->
+		   <groupId>org.eclipse.persistence</groupId>
+		   <artifactId>eclipselink</artifactId>
+		   <version>2.4.1</version>
+		</dependency>
+		
+		<dependency> <!-- JSR-303 V8n - API -->
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+		<dependency> <!-- JSR-303 V8n - IMPL -->
+			<groupId>org.apache.bval</groupId>
+			<artifactId>bval-guice</artifactId>
+			<version>0.5</version>
+		</dependency>
+		
 		<dependency>
 			<!-- this brings in the popular 'jackson' (and the defunct 'jettison') -->
 			<groupId>com.sun.jersey</groupId>
@@ -42,45 +77,19 @@
 			<artifactId>jersey-guice</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>0.11.6</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.9</version>
 		</dependency>
-		<dependency>
-			<groupId>org.batoo.jpa</groupId>
-			<artifactId>persistence-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.1-901-1.jdbc4</version>
-		</dependency>
-		<dependency>
-		   <groupId>org.eclipse.persistence</groupId>
-		   <artifactId>eclipselink</artifactId>
-		   <version>2.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
-		</dependency>
+
+		<!-- USEFUL TOOLS -->
+		
 		<dependency>
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 			<version>0.9.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.bval</groupId>
-			<artifactId>bval-guice</artifactId>
-			<version>0.3-incubating</version>
 		</dependency>
 		<dependency>
 		    <groupId>commons-beanutils</groupId>
@@ -88,11 +97,20 @@
 		    <version>1.8.3</version>
 		</dependency>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>0.11.6</version>
+		</dependency>
+		
+		<!-- TESTING -->
+		
+		<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
 		    <version>4.11</version>
 		    <scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 	<repositories>
 		<repository>
@@ -105,7 +123,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-                                <version>3.0</version>
+                <version>3.0</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>

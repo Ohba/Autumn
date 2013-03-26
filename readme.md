@@ -12,40 +12,20 @@ Here is a comparison of a traditional web stack vs what the Autumn stack may loo
 |-----------------|---------------------|--------------------------|
 | JSR- 47 Logging | log4j*              | logback/slf4j*           |
 | JSR-222 JAXB    | jackson             | jackson or gson*         |
-| JSR-243 JDO2    |                     | datanucleus              |
 | JSR-250         | spring-security     | apache shiro             |
-| JSR-303 V8n     | hibernate-validator | hibernate or datanucleus |
+| JSR-303 V8n     | hibernate-validator | bval                     |
 | JSR-311 JAX-RS  | spring-webmvc*      | jersey                   |
 | JSR-315 Servlet | tomcat              | jetty 9                  |
-| JSR-317 JPA2    | hibernate           | datanucleus              |
+| JSR-317 JPA2    | hibernate           | eclipselink              |
 | JSR-330 DI      | spring-core         | guice                    |
 
 _*=does not conform to the spec but fills the same space_
 
-TODO: see if we can migrate these lists below up to the table above
+other yummy libraries you might find:
 
-A traditional web stack might include:
-
-  * Spring-core
-  * Spring-webmvc
-  * Jackson
-  * Log4j
-  * Tomcat
-  * many Apache commons utils
-  * Hibernate
-  * Spring-security
-  * Junit3
-  * Spring-batch
-
-The Autumn web stack may attempt:
-
-  * Guice | GuicyFruit
-  * Jersey
-  * Gson
-  * Logback/slf4j
-  * Jetty 9 (on java 7)
   * Guava, Lombok, joda-time
-  * Spring-data | jdbi | Gora 
+  * select Apache commons utils
+  * queryDSL 
   * Apache shiro
   * junit4+hamcrest
   * Quartz

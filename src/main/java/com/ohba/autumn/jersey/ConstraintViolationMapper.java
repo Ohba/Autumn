@@ -10,6 +10,6 @@ public class ConstraintViolationMapper implements ExceptionMapper<ConstraintViol
 
 	@Override
 	public Response toResponse(ConstraintViolationException ex) {
-		return Response.status(400).entity(ex.getMessage()).type("text/plain").build();
+		return Response.status(400).entity("{\"exception\":\""+ex.getMessage()+"\"}").type("application/json").build();
 	}
 }
