@@ -1,4 +1,4 @@
-package com.ohba.autumn.sample.resource;
+package com.ohba.autumn.jersey;
 
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;

@@ -48,7 +48,7 @@ public class App extends GuiceServletContextListener {
 				 * guice passes the init params to jersey as jersey comes up. 
 				 */
 				Map<String,String> initParams = Maps.newHashMap();
-				initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, myConfig.getPathPackage());
+				initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, myConfig.getPathPackage() + ";com.ohba.autumn.jersey");
 				initParams.put(JSONConfiguration.FEATURE_POJO_MAPPING, myConfig.getPojoMapping().toString());
 				
 				// add a few more params that cant be set in the JSON
