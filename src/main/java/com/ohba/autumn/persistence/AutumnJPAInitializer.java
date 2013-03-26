@@ -36,8 +36,7 @@ public class AutumnJPAInitializer extends JPAInitializer {
 			}
 		}
 		log.warn("puname={}, properties={}",puName,p);
-		SEPersistenceUnitInfo pu = realInitializer.findPersistenceUnitInfo(puName, m); //new SEPersistenceUnitInfo();
-		//pu.setProperties(p);
+		SEPersistenceUnitInfo pu = realInitializer.findPersistenceUnitInfo(puName, m);
 		log.warn("pu={}",pu);
 		log.warn("pu.managedClasName={}", pu.getManagedClassNames());
 		pu.getManagedClassNames().addAll(clazzesToAdd);

@@ -14,6 +14,8 @@
 	// default: true
 	pojoMapping: true,
 	
+	dataStoreType:'JDBC',
+	
 	// your JDBC connection information
 	jdbc: {
 		driver: 'java.sql.Driver',

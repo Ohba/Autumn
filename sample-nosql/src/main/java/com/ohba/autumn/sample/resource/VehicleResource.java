@@ -50,7 +50,7 @@ public class VehicleResource {
     
 	@GET
 	@Path("/make")
-	public Vehicle persist(@QueryParam("id") Long id,
+	public Vehicle persist(@QueryParam("id") String id,
 			@QueryParam("make") String make, @QueryParam("model") String model, @QueryParam("color") String color) {
 		Vehicle car = new Vehicle(id, make, model, color);
 		em.getTransaction().begin();

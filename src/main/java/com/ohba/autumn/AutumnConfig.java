@@ -22,9 +22,14 @@ public class AutumnConfig {
 	private String pathPackage;
 	private String entityPackage;
 	private Boolean pojoMapping;
-	private Jdbc jdbc;
 	
-	// TODO: determine how to add no-sql connections
+	private DataStoreType dataStoreType;
+	private Jdbc jdbc;
+	private Mongo mongo;
+	
+	public static enum DataStoreType {
+		JDBC, MONGO
+	}
 	
 	@Data
 	public static class Jdbc {
@@ -32,6 +37,13 @@ public class AutumnConfig {
 		private String url;
 		private String user;
 		private String password;
+	}
+	
+	@Data
+	public static class Mongo {
+		private String port;
+		private String host;
+		private String db;
 	}
 	
 	// cant imagine why you would want to disable the POJO-JSON mapping

@@ -47,6 +47,11 @@
 		   <artifactId>eclipselink</artifactId>
 		   <version>2.4.1</version>
 		</dependency>
+		<dependency>
+		   <groupId>org.eclipse.persistence</groupId>
+		   <artifactId>org.eclipse.persistence.nosql</artifactId>
+		   <version>2.4.1</version>
+		</dependency>
 		
 		<dependency> <!-- JSR-303 V8n - API -->
 			<groupId>javax.validation</groupId>
