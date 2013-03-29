@@ -5,6 +5,8 @@ import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.shiro.guice.web.GuiceShiroFilter;
+
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
 import com.ohba.autumn.AutumnConfig;
@@ -38,13 +40,20 @@ public class AtmnJerseyModule extends JerseyServletModule {
 		initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, Joiner.on(';').join(pathPackages));
 		initParams.put(JSONConfiguration.FEATURE_POJO_MAPPING, atmnCnf.getPojoMapping().toString());
 		
+		initParams.put(PackagesResourceConfig.PROPERTY_RESOURCE_FILTER_FACTORIES,  
+                "com.sun.jersey.api.container.filter.RolesAllowedResourceFilterFactory");
+		
 		// add a few more params that cant be set in the JSON
 		// posible init params are here: http://jersey.java.net/apidocs/1.17/jersey/constant-values.html
 		initParams.put(ServletContainer.FEATURE_FILTER_FORWARD_ON_404, "true");
 		
+		filter("/*").through(GuiceShiroFilter.class);
+		
 		// by filter-through (instead of serve-with) then requests that guice+jersey
 		// cant handle will be chained along to our default `StaticFileServlet.java`
 		filter("/*").through(GuiceContainer.class, initParams);
+		
+		
 	}
 	
 }

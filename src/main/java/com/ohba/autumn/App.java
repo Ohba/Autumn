@@ -4,14 +4,18 @@
  */
 package com.ohba.autumn;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebListener;
 
 import org.apache.bval.guice.ValidationModule;
+import org.apache.shiro.guice.aop.ShiroAopModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.ohba.autumn.modules.AtmnJerseyModule;
+import com.ohba.autumn.modules.AtmnShiroModule;
 import com.ohba.autumn.modules.JpaModule;
 
 @WebListener
@@ -21,6 +25,7 @@ public class App extends GuiceServletContextListener {
 	// and bootstraps in all the Guice config
 
 	private static AutumnConfig atmnCnf = AutumnConfig.fromResource("autumn.defaults.json","autumn.json");
+	private ServletContext servletContext;
 
 	@Override
 	protected Injector getInjector() {
@@ -37,8 +42,20 @@ public class App extends GuiceServletContextListener {
 				new JpaModule(atmnCnf),
 				
 				// already provided in guice is jsr303 hooks
-				new ValidationModule()
+				new ValidationModule(),
+				
+				// our security config
+				new AtmnShiroModule(atmnCnf, servletContext),
+				// support security annotations
+				new ShiroAopModule()
+				
 			);
 	}
+	
+	@Override 
+    public void contextInitialized(ServletContextEvent servletContextEvent) { 
+            this.servletContext = servletContextEvent.getServletContext(); 
+            super.contextInitialized(servletContextEvent); 
+    } 
 
 }
