@@ -7,7 +7,7 @@
 	// no default currently set
 	// all packages in 1 string, seperate packages with ';'
 	// TODO support an array here
-	pathPackage: 'com.example.app.rest',
+	pathPackage: ['com.example.app.rest'],
 	entityPackage: 'com.example.app.pojo',
 	
 	// do you want to map POJOs to JSON and back?

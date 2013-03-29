@@ -4,6 +4,7 @@
  */
 package com.ohba.autumn;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.annotation.WebListener;
@@ -12,6 +13,7 @@ import org.apache.bval.guice.ValidationModule;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -30,6 +32,8 @@ public class App extends GuiceServletContextListener {
 	// essentially the Guice stuff hears that a context is being loaded
 	// and bootstraps in all the Guice config
 
+	private static final String EXCPETION_MAPPER_PACKAGE = "com.ohba.autumn.jersey";
+	
 	private static AutumnConfig myConfig = AutumnConfig.fromResource("autumn.defaults.json","autumn.json");
 
 	@Override
@@ -48,7 +52,9 @@ public class App extends GuiceServletContextListener {
 				 * guice passes the init params to jersey as jersey comes up. 
 				 */
 				Map<String,String> initParams = Maps.newHashMap();
-				initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, myConfig.getPathPackage() + ";com.ohba.autumn.jersey");
+				List<String> pathPackages = myConfig.getPathPackage();
+				pathPackages.add(EXCPETION_MAPPER_PACKAGE);
+				initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, Joiner.on(';').join(pathPackages));
 				initParams.put(JSONConfiguration.FEATURE_POJO_MAPPING, myConfig.getPojoMapping().toString());
 				
 				// add a few more params that cant be set in the JSON
