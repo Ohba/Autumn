@@ -28,8 +28,12 @@ import com.ohba.autumn.persistence.AutumnPersistenceProvider;
 @Slf4j
 public class JpaModule extends AbstractModule{
 
-	private static AutumnConfig myConfig = AutumnConfig.fromResource("autumn.defaults.json","autumn.json");
+	private final AutumnConfig atmnCnf;
 	
+	public JpaModule(AutumnConfig atmnCnf) {
+		this.atmnCnf = atmnCnf;
+	}
+
 	@Override
 	protected void configure() {
 		
@@ -38,12 +42,12 @@ public class JpaModule extends AbstractModule{
 	@Provides
 	public EntityManager provideEntityManager() {
 		
-		val dsType = myConfig.getDataStoreType();
+		val dsType = atmnCnf.getDataStoreType();
 		
 		Map<String, String> properties = Maps.newHashMap();
 
 		if(dsType == DataStoreType.JDBC) {
-			Jdbc jdbc = myConfig.getJdbc();
+			Jdbc jdbc = atmnCnf.getJdbc();
 			properties.put(PersistenceUnitProperties.JDBC_DRIVER, jdbc.getDriver());
 			properties.put(PersistenceUnitProperties.JDBC_URL, jdbc.getUrl());
 			properties.put(PersistenceUnitProperties.JDBC_USER, jdbc.getUser());
@@ -53,7 +57,7 @@ public class JpaModule extends AbstractModule{
 			properties.put(PersistenceUnitProperties.DDL_GENERATION_MODE, PersistenceUnitProperties.DDL_DATABASE_GENERATION);
 
 		} else if (dsType == DataStoreType.MONGO) {
-			Mongo mongo = myConfig.getMongo();
+			Mongo mongo = atmnCnf.getMongo();
 			properties.put(PersistenceUnitProperties.TARGET_DATABASE, "org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform");
 			properties.put(PersistenceUnitProperties.NOSQL_CONNECTION_SPEC, "org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec");
 			properties.put(PersistenceUnitProperties.NOSQL_PROPERTY+MongoConnectionSpec.PORT, mongo.getPort());
@@ -63,7 +67,7 @@ public class JpaModule extends AbstractModule{
 			properties.put(PersistenceUnitProperties.NOSQL_PROPERTY+MongoConnectionSpec.PASSWORD, mongo.getPassword());
 		} 
 				
-		Reflections reflections = new Reflections(myConfig.getEntityPackage()); 
+		Reflections reflections = new Reflections(atmnCnf.getEntityPackage()); 
 		Set<Class<?>> entityTypes =  reflections.getTypesAnnotatedWith(Entity.class);
 		List<String> entityTypeNames = Lists.newArrayList();
 		for(Class<?> entityType : entityTypes) {
@@ -71,9 +75,6 @@ public class JpaModule extends AbstractModule{
 		}
 		
 		log.info("found the following Entities:{}", entityTypeNames);
-		log.info("all my properties: {}", properties);
-		
-//		List<String> entityTypeNames = Arrays.asList("com.ohba.autumn.sample.pojos.Vehicle");
 		
 		EntityManagerFactory emf = new AutumnPersistenceProvider().createEntityManagerFactory("autumn", properties, entityTypeNames);
 		
