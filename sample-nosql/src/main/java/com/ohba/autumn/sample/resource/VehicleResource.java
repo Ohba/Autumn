@@ -42,7 +42,7 @@ public class VehicleResource {
     
 	@DELETE
 	@Path("/{id}")
-	public void delete(@PathParam("id") Long id) {
+	public void delete(@PathParam("id") String id) {
 		em.getTransaction().begin();
 		em.remove(em.find(Vehicle.class, id));
 		em.getTransaction().commit();

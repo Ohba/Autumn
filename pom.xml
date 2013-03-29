@@ -42,17 +42,27 @@
 			<artifactId>javax.persistence</artifactId>
 			<version>2.0.4.v201112161009</version>
 		</dependency>
+		
+		<!-- look here for latest releases:
+			http://download.eclipse.org/rt/eclipselink/maven.repo/org/eclipse/persistence/eclipselink/?d
+			 -->
 		<dependency> <!-- JSR-317 JPA2 - IMPL -->
 		   <groupId>org.eclipse.persistence</groupId>
 		   <artifactId>eclipselink</artifactId>
-		   <version>2.4.1</version>
+		   <version>2.4.2-RC1</version>
 		</dependency>
 		<dependency>
 		   <groupId>org.eclipse.persistence</groupId>
 		   <artifactId>org.eclipse.persistence.nosql</artifactId>
-		   <version>2.4.1</version>
+		   <version>2.4.2-RC1</version>
 		</dependency>
 		
+		
+		<dependency>
+		    <groupId>javax.resource</groupId>
+		    <artifactId>javax.resource-api</artifactId>
+		    <version>1.7-b04</version>
+		</dependency>
 		<dependency> <!-- JSR-303 V8n - API -->
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>

@@ -33,17 +33,12 @@ public class AutumnConfig {
 	
 	@Data
 	public static class Jdbc {
-		private String driver;
-		private String url;
-		private String user;
-		private String password;
+		private String driver, url, user, password;
 	}
 	
 	@Data
 	public static class Mongo {
-		private String port;
-		private String host;
-		private String db;
+		private String port, host, db, user, password;
 	}
 	
 	// cant imagine why you would want to disable the POJO-JSON mapping

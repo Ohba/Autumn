@@ -8,15 +8,16 @@ import java.util.Map;
 
 import javax.servlet.annotation.WebListener;
 
-import org.apache.bval.guice.ValidationModule;
-
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.bval.guice.ValidationModule;
 
 import com.google.common.collect.Maps;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.ohba.autumn.modules.JpaModule;
+import com.ohba.autumn.mongo.AutumnMongoConnectionFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.guice.JerseyServletModule;
@@ -60,6 +61,8 @@ public class App extends GuiceServletContextListener {
 				install(new JpaModule());
 				
 				install(new ValidationModule());
+				
+				bind(AutumnMongoConnectionFactory.class).toInstance(new AutumnMongoConnectionFactory());
 				
 				// by filter-through (instead of serve-with) then requests that guice+jersey
 				// cant handle will be chained along to our default `StaticFileServlet.java`

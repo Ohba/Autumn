@@ -12,6 +12,7 @@ import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
+import org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec;
 import org.reflections.Reflections;
 
 import com.google.common.collect.Lists;
@@ -53,13 +54,14 @@ public class JpaModule extends AbstractModule{
 
 		} else if (dsType == DataStoreType.MONGO) {
 			Mongo mongo = myConfig.getMongo();
-			properties.put("eclipselink.target-database", "org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform");
-			properties.put("eclipselink.nosql.connection-spec", "org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec");
-			properties.put("eclipselink.nosql.property.mongo.port", mongo.getPort());
-			properties.put("eclipselink.nosql.property.mongo.host", mongo.getHost());
-			properties.put("eclipselink.nosql.property.mongo.db", mongo.getDb());
+			properties.put(PersistenceUnitProperties.TARGET_DATABASE, "org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform");
+			properties.put(PersistenceUnitProperties.NOSQL_CONNECTION_SPEC, "org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec");
+			properties.put(PersistenceUnitProperties.NOSQL_PROPERTY+MongoConnectionSpec.PORT, mongo.getPort());
+			properties.put(PersistenceUnitProperties.NOSQL_PROPERTY+MongoConnectionSpec.HOST, mongo.getHost());
+			properties.put(PersistenceUnitProperties.NOSQL_PROPERTY+MongoConnectionSpec.DB, mongo.getDb());
+			properties.put(PersistenceUnitProperties.NOSQL_PROPERTY+MongoConnectionSpec.USER, mongo.getUser());
+			properties.put(PersistenceUnitProperties.NOSQL_PROPERTY+MongoConnectionSpec.PASSWORD, mongo.getPassword());
 		} 
-		
 				
 		Reflections reflections = new Reflections(myConfig.getEntityPackage()); 
 		Set<Class<?>> entityTypes =  reflections.getTypesAnnotatedWith(Entity.class);
@@ -69,6 +71,7 @@ public class JpaModule extends AbstractModule{
 		}
 		
 		log.info("found the following Entities:{}", entityTypeNames);
+		log.info("all my properties: {}", properties);
 		
 //		List<String> entityTypeNames = Arrays.asList("com.ohba.autumn.sample.pojos.Vehicle");
 		

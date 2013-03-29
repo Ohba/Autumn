@@ -5,8 +5,10 @@
     dataStoreType: 'MONGO',
     
     mongo: {
-        host:'johndoe:janeishot@ds053597.mongolab.com',
-        port: '53597',
-        db:'autumn-sample-nosql'
+        host:'dbh76.mongolab.com',
+        port: '27767',
+        db:'autumn-sample-nosql',
+        user:'johndoe',
+        password:'janeishot'
     }
 }
