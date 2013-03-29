@@ -2,6 +2,7 @@ package co.ohba.autumn.sample.resource;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.DELETE;
@@ -20,12 +21,12 @@ public class VehicleResource {
 	
 	@Inject
 	private EntityManager em;
-	
-    @GET
-    public List<Vehicle> queryAll(){
-            return em.createQuery("SELECT v FROM Vehicle v", Vehicle.class).getResultList();
-    }
-    
+
+	@GET
+	public List<Vehicle> queryAll() {
+		return em.createQuery("SELECT v FROM Vehicle v", Vehicle.class).getResultList();
+	}
+
     @POST
     public Vehicle create(Vehicle newCar){
     	em.getTransaction().begin();
@@ -42,6 +43,7 @@ public class VehicleResource {
     
 	@DELETE
 	@Path("/{id}")
+	@RolesAllowed("ADMIN")
 	public void delete(@PathParam("id") Long id) {
 		em.getTransaction().begin();
 		em.remove(em.find(Vehicle.class, id));

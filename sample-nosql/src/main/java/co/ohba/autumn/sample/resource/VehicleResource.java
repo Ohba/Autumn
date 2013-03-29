@@ -26,7 +26,7 @@ public class VehicleResource {
 	public List<Vehicle> queryAll() {
 		return em.createQuery("SELECT v FROM Vehicle v", Vehicle.class).getResultList();
 	}
-  
+
     @POST
     public Vehicle create(Vehicle newCar){
     	em.getTransaction().begin();
