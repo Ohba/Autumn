@@ -16,12 +16,7 @@
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<jetty.scanIntervalSeconds>1</jetty.scanIntervalSeconds>
 	</properties>
-	<repositories>
-		<repository>
-			<id>ohba</id>
-			<url>https://bitbucket.org/ohba/autumn/raw/master/repo/</url>
-		</repository>
-	</repositories>
+	
 	<dependencies>
 
 		<dependency>
@@ -45,6 +40,13 @@
 		</dependency>
 		
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>ohba</id>
+			<url>https://bitbucket.org/ohba/autumn/raw/master/repo/</url>
+		</repository>
+	</repositories>
+	
 	
 	<build>
 		<plugins>
