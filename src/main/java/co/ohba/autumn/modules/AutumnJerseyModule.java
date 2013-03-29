@@ -15,13 +15,13 @@ import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
-public class AtmnJerseyModule extends JerseyServletModule {
+public class AutumnJerseyModule extends JerseyServletModule {
 	
 	private static final String EXCEPTION_MAPPER_PACKAGE = "co.ohba.autumn.jersey";
 
 	private final AutumnConfig atmnCnf;
 
-	public AtmnJerseyModule(AutumnConfig atmnCnf) {
+	public AutumnJerseyModule(AutumnConfig atmnCnf) {
 		this.atmnCnf = atmnCnf;
 	}
 

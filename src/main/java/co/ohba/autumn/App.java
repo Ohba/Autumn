@@ -11,8 +11,8 @@ import javax.servlet.annotation.WebListener;
 import org.apache.bval.guice.ValidationModule;
 import org.apache.shiro.guice.aop.ShiroAopModule;
 
-import co.ohba.autumn.modules.AtmnJerseyModule;
-import co.ohba.autumn.modules.AtmnShiroModule;
+import co.ohba.autumn.modules.AutumnJerseyModule;
+import co.ohba.autumn.modules.AutumnShiroModule;
 import co.ohba.autumn.modules.JpaModule;
 
 import com.google.inject.Guice;
@@ -36,7 +36,7 @@ public class App extends GuiceServletContextListener {
 				// here we tell guice what system will REALLY be our servlet
 				// cause Guice is more or less just shimmed in the midddle
 				// to provide DI. as you see Jersey will be our Servlet provider
-				new AtmnJerseyModule(atmnCnf),
+				new AutumnJerseyModule(atmnCnf),
 				
 				//Adding JPA related module. This just helps separate concerns in the code.
 				//All JPA related injections will go in that module.
@@ -46,7 +46,7 @@ public class App extends GuiceServletContextListener {
 				new ValidationModule(),
 				
 				// our security config
-				new AtmnShiroModule(atmnCnf, servletContext),
+				new AutumnShiroModule(atmnCnf, servletContext),
 				// support security annotations
 				new ShiroAopModule()
 				

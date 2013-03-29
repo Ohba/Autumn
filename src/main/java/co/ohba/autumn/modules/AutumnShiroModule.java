@@ -11,11 +11,11 @@ import co.ohba.autumn.AutumnConfig;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
-public class AtmnShiroModule extends ShiroWebModule {
+public class AutumnShiroModule extends ShiroWebModule {
 	
     private final AutumnConfig atmnCnf;
 
-	public AtmnShiroModule(AutumnConfig atmnCnf, ServletContext sc) {
+	public AutumnShiroModule(AutumnConfig atmnCnf, ServletContext sc) {
 		super(sc);
 		this.atmnCnf = atmnCnf;
 	}
