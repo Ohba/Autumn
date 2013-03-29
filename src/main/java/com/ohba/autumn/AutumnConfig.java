@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import lombok.Data;
 import lombok.val;
@@ -19,7 +20,7 @@ import com.ohba.autumn.utils.NullAwareBeanUtils;
 @Data
 public class AutumnConfig {
 	
-	private String pathPackage;
+	private List<String> pathPackage;
 	private String entityPackage;
 	private Boolean pojoMapping;
 	

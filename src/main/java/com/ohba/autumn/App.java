@@ -4,6 +4,7 @@
  */
 package com.ohba.autumn;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.annotation.WebListener;
@@ -12,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.apache.bval.guice.ValidationModule;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.ohba.autumn.modules.JpaModule;
-import com.ohba.autumn.mongo.AutumnMongoConnectionFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.guice.JerseyServletModule;
@@ -31,6 +32,9 @@ public class App extends GuiceServletContextListener {
 	// essentially the Guice stuff hears that a context is being loaded
 	// and bootstraps in all the Guice config
 
+	//TODO: fix the spelling error in the following line -dL
+	private static final String EXCPETION_MAPPER_PACKAGE = "com.ohba.autumn.jersey";
+	
 	private static AutumnConfig myConfig = AutumnConfig.fromResource("autumn.defaults.json","autumn.json");
 
 	@Override
@@ -49,7 +53,9 @@ public class App extends GuiceServletContextListener {
 				 * guice passes the init params to jersey as jersey comes up. 
 				 */
 				Map<String,String> initParams = Maps.newHashMap();
-				initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, myConfig.getPathPackage() + ";com.ohba.autumn.jersey");
+				List<String> pathPackages = myConfig.getPathPackage();
+				pathPackages.add(EXCPETION_MAPPER_PACKAGE);
+				initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, Joiner.on(';').join(pathPackages));
 				initParams.put(JSONConfiguration.FEATURE_POJO_MAPPING, myConfig.getPojoMapping().toString());
 				
 				// add a few more params that cant be set in the JSON
@@ -61,8 +67,6 @@ public class App extends GuiceServletContextListener {
 				install(new JpaModule());
 				
 				install(new ValidationModule());
-				
-				bind(AutumnMongoConnectionFactory.class).toInstance(new AutumnMongoConnectionFactory());
 				
 				// by filter-through (instead of serve-with) then requests that guice+jersey
 				// cant handle will be chained along to our default `StaticFileServlet.java`
