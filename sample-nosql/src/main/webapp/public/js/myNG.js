@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('myApp', [ 'ngResource' ]).
 factory('Car', function($resource) {
 	return $resource('cars/:id', {
@@ -20,7 +22,6 @@ function CarCtrl($scope, Car) {
 		newCar : new Car(),
 		
 		create : function() {
-            var f = this.newCarForm;
             inputsEnabled(false);
 			this.newCar.$save(function() {
                 $scope.cars.push($scope.newCar);
@@ -32,7 +33,7 @@ function CarCtrl($scope, Car) {
 		remove : function(car) {
             var id = car.id;
 			car.$remove(function() {
-                for (i = 0; i < $scope.cars.length; ++i) {
+                for (var i = 0; i < $scope.cars.length; ++i) {
                     if ($scope.cars[i].id === id) {
                         $scope.cars.splice(i--, 1);
                     }

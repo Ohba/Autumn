@@ -3,8 +3,6 @@ package com.ohba.autumn.modules;
 import java.util.List;
 import java.util.Map;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.shiro.guice.web.GuiceShiroFilter;
 
 import com.google.common.base.Joiner;
@@ -16,11 +14,9 @@ import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
-@Slf4j
 public class AtmnJerseyModule extends JerseyServletModule {
 	
-	//TODO: fix the spelling error in the following line -dL
-	private static final String EXCPETION_MAPPER_PACKAGE = "com.ohba.autumn.jersey";
+	private static final String EXCEPTION_MAPPER_PACKAGE = "com.ohba.autumn.jersey";
 
 	private final AutumnConfig atmnCnf;
 
@@ -36,7 +32,7 @@ public class AtmnJerseyModule extends JerseyServletModule {
 		 */
 		Map<String,String> initParams = Maps.newHashMap();
 		List<String> pathPackages = atmnCnf.getPathPackage();
-		pathPackages.add(EXCPETION_MAPPER_PACKAGE);
+		pathPackages.add(EXCEPTION_MAPPER_PACKAGE);
 		initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, Joiner.on(';').join(pathPackages));
 		initParams.put(JSONConfiguration.FEATURE_POJO_MAPPING, atmnCnf.getPojoMapping().toString());
 		

@@ -13,34 +13,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import lombok.extern.slf4j.Slf4j;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.subject.Subject;
-
 import com.ohba.autumn.sample.pojo.Vehicle;
 
-@Slf4j
 @Path("/cars")
 @Produces("application/json")
 public class VehicleResource {
 	
 	@Inject
-	private SecurityManager sm;
-	
-	@Inject
 	private EntityManager em;
-	
-    @GET
-    public List<Vehicle> queryAll(){
-    	SecurityUtils.setSecurityManager(sm);
-    	Subject sub = SecurityUtils.getSubject();
-    	log.info("subject: {}", sub);
-    	
-            return em.createQuery("SELECT v FROM Vehicle v", Vehicle.class).getResultList();
-    }
-    
+
+	@GET
+	public List<Vehicle> queryAll() {
+		return em.createQuery("SELECT v FROM Vehicle v", Vehicle.class).getResultList();
+	}
+  
     @POST
     public Vehicle create(Vehicle newCar){
     	em.getTransaction().begin();
