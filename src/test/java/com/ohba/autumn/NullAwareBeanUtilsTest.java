@@ -1,6 +1,7 @@
 package com.ohba.autumn;
 
-import com.ohba.autumn.utils.NullAwareBeanUtils;
+import co.ohba.autumn.utils.NullAwareBeanUtils;
+
 import java.lang.reflect.InvocationTargetException;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;

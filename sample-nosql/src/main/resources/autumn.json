@@ -1,6 +1,6 @@
 {
-    pathPackage: 'com.ohba.autumn.sample.resource',
-    entityPackage: 'com.ohba.autumn.sample.pojo',
+    pathPackage: 'co.ohba.autumn.sample.resource',
+    entityPackage: 'co.ohba.autumn.sample.pojo',
     
     dataStoreType: 'MONGO',
     
