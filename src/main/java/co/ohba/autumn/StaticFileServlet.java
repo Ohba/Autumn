@@ -45,10 +45,10 @@ public class StaticFileServlet extends FileServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// no code but we MAY need to inject logic here someday
-		if(request.getPathInfo().equals("/")){
+		if(request.getPathInfo().substring(request.getPathInfo().length() - 1).equals("/")){
 			super.doGet(new HttpServletRequestWrapper(request) {
 			    public String getPathInfo() {
-			        return super.getPathInfo().replace("/", "/index.html");
+			        return super.getPathInfo().replaceAll("/$", "/index.html");
 			    }
 			}, response);
 		}else{
