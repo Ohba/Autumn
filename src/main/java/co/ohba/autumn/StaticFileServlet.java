@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import net.balusc.webapp.FileServlet;
@@ -44,7 +45,16 @@ public class StaticFileServlet extends FileServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// no code but we MAY need to inject logic here someday
-		super.doGet(request, response);
+		if(request.getPathInfo().equals("/")){
+			super.doGet(new HttpServletRequestWrapper(request) {
+			    public String getPathInfo() {
+			        return super.getPathInfo().replace("/", "/index.html");
+			    }
+			}, response);
+		}else{
+			super.doGet(request, response);
+		}
+		
 	}
 	
 }
