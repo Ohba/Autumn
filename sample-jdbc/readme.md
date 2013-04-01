@@ -2,8 +2,7 @@ Want to use the Autumn Stack to liberate your web development?
 
 # add `autumn-core` dependency to your `pom.xml`
 
-{{{
-#!xml
+:::xml
 <repositories>
     <repository>
         <id>ohba</id>
@@ -15,8 +14,6 @@ Want to use the Autumn Stack to liberate your web development?
     <artifactId>autumn-core</artifactId>
     <version>0.1.0</version>
 </dependency>
-
-}}}
 
 # write a controller method
 # # annotated with `@Path` and `@GET`
