@@ -1,34 +1,22 @@
 package co.ohba.autumn.sample.resource;
 
-import java.util.List;
+import co.ohba.autumn.CrudResource;
+import co.ohba.autumn.sample.pojo.Vehicle;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
-import org.apache.shiro.authz.annotation.RequiresRoles;
-
-import co.ohba.autumn.sample.pojo.Vehicle;
+import javax.ws.rs.*;
+import java.util.List;
 
 @Path("/cars")
 @Produces("application/json")
-public class VehicleResource {
+public class VehicleResource extends CrudResource<Vehicle, Long> {
 	
 	@Inject
 	private EntityManager em;
 
-	@GET
-	public List<Vehicle> queryAll() {
-		return em.createQuery("SELECT v FROM Vehicle v", Vehicle.class).getResultList();
-	}
-
-    @POST
+    @Override
     public Vehicle create(Vehicle newCar){
     	em.getTransaction().begin();
 		em.persist(newCar);
@@ -36,14 +24,17 @@ public class VehicleResource {
 		return newCar;
     }
 
-    @GET
-    @Path("/{id}")
-    public Vehicle findById(@PathParam("id") Long id){
+    @Override
+    public List<Vehicle> get() {
+        return em.createQuery("SELECT v FROM Vehicle v", Vehicle.class).getResultList();
+    }
+
+    @Override
+    public Vehicle get(@PathParam("id") Long id){
             return em.find(Vehicle.class, id);
     }
     
-	@DELETE
-	@Path("/{id}")
+	@Override
 	@RequiresRoles("ADMIN")
 	public void delete(@PathParam("id") Long id) {
 		em.getTransaction().begin();
