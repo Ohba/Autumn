@@ -1,14 +1,11 @@
 {
 	// this file is more than just documentation
 	// it IS read at runtime and populate the DEFAULT autumn config
-	// the user's autumn.json values will be overlayed ontop of these
+	// the user's autumn.json values will be overlayed on top of these
 
 	// what packages to scan for @Path resources
-	// no default currently set
-	// all packages in 1 string, seperate packages with ';'
-	// TODO support an array here
-	pathPackage: ['com.example.app.rest'],
-	entityPackage: 'com.example.app.pojo',
+	pathPackage: 'co.ohba.autumn.sample.rest',
+	entityPackage: 'co.ohba.autumn.sample.pojo',
 	
 	// do you want to map POJOs to JSON and back?
 	// default: true
@@ -18,12 +15,10 @@
 	
 	// your JDBC connection information
 	jdbc: {
-		driver: 'java.sql.Driver',
-		url:'jdbc:',
-		user:'mruser',
-		password:'sup3rs3cr3tp@$$w0rd'
+		driver: 'com.h2.Driver',
+		url:'jdbc:h2:file:data/sample',
+		user:'sa',
+		password:''
 	}
-
-// TODO allow for no-sql configuration also
 	
 }

@@ -37,12 +37,11 @@ public class AutumnJerseyModule extends JerseyServletModule {
 		initParams.put(PackagesResourceConfig.PROPERTY_PACKAGES, Joiner.on(';').join(pathPackages));
 		initParams.put(JSONConfiguration.FEATURE_POJO_MAPPING, atmnCnf.getPojoMapping().toString());
 		
-		initParams.put(PackagesResourceConfig.PROPERTY_RESOURCE_FILTER_FACTORIES,  
-                "com.sun.jersey.api.container.filter.RolesAllowedResourceFilterFactory");
-		
 		// add a few more params that cant be set in the JSON
 		// posible init params are here: http://jersey.java.net/apidocs/1.17/jersey/constant-values.html
 		initParams.put(ServletContainer.FEATURE_FILTER_FORWARD_ON_404, "true");
+		
+		initParams.put(ServletContainer.JSP_TEMPLATES_BASE_PATH, "views");
 		
 		filter("/*").through(GuiceShiroFilter.class);
 		

@@ -65,7 +65,8 @@ public class AutumnConfig {
 		try {
 			val baseConfig = defaultConfigStream==null ? new AutumnConfig() :
 				mapper.readValue(defaultConfigStream, AutumnConfig.class);
-			val overlayConfig = mapper.readValue(configStream, AutumnConfig.class);
+			val overlayConfig = configStream==null ? new AutumnConfig() :
+				mapper.readValue(configStream, AutumnConfig.class);
 			NullAwareBeanUtils.INSTANCE.copyProperties(baseConfig, overlayConfig);
 			return baseConfig;
 			// YES! return the baseConfig, because by now

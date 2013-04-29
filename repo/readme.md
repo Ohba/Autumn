@@ -5,7 +5,7 @@ this subdir is our mvn repo. to use it just add the following to your pom:
 ...
   <repository>
     <id>ohba</id>
-    <url>https://bitbucket.org/ohba/autumn/raw/master/repo/</url>
+    <url>https://bitbucket.org/ohba/autumn/raw/master/repo</url>
   </repository>
 ...
 </repositories>

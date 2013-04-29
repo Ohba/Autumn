@@ -2,7 +2,6 @@ package co.ohba.autumn.sample.resource;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.DELETE;
@@ -12,6 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+
+import org.apache.shiro.authz.annotation.RequiresRoles;
 
 import co.ohba.autumn.sample.pojo.Vehicle;
 
@@ -43,7 +44,7 @@ public class VehicleResource {
     
 	@DELETE
 	@Path("/{id}")
-	@RolesAllowed("ADMIN")
+	@RequiresRoles("ADMIN")
 	public void delete(@PathParam("id") Long id) {
 		em.getTransaction().begin();
 		em.remove(em.find(Vehicle.class, id));

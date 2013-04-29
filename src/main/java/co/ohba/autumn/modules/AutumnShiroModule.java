@@ -28,7 +28,7 @@ public class AutumnShiroModule extends ShiroWebModule {
             addError(e);
         }
         
-        //addFilterChain("/*", AUTHC_BASIC);
+        addFilterChain("/*", AUTHC_BASIC);
         
     }
 
