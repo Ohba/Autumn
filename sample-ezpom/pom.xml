@@ -23,7 +23,7 @@
 	<repositories>
 		<repository>
 			<id>autumn</id>
-			<url>https://bitbucket.org/ohba/autumn/raw/master/repo</url>
+			<url>https://raw.github.com/Ohba/Autumn/master/repo/</url>
 		</repository>
 	</repositories>
 
