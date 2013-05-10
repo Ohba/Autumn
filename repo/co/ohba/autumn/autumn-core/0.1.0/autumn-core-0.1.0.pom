@@ -213,7 +213,35 @@
 		</repository>
 	</repositories>
 
-    <!--<build>-->
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
         <!--<extensions>-->
             <!--<extension>-->
                 <!--<groupId>org.springframework.build</groupId>-->
@@ -221,5 +249,5 @@
                 <!--<version>4.4.0.RELEASE</version>-->
             <!--</extension>-->
         <!--</extensions>-->
-    <!--</build>-->
+    </build>
 </project>
