@@ -4,20 +4,17 @@
  */
 package co.ohba.autumn;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.annotation.WebListener;
-
-import org.apache.bval.guice.ValidationModule;
-import org.apache.shiro.guice.aop.ShiroAopModule;
-
 import co.ohba.autumn.modules.AutumnJerseyModule;
 import co.ohba.autumn.modules.AutumnShiroModule;
 import co.ohba.autumn.modules.JpaModule;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
+import org.apache.bval.guice.ValidationModule;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class App extends GuiceServletContextListener {
@@ -46,9 +43,10 @@ public class App extends GuiceServletContextListener {
 				new ValidationModule(),
 				
 				// our security config
-				new AutumnShiroModule(atmnCnf, servletContext),
+				new AutumnShiroModule(atmnCnf, servletContext)
+                
 				// support security annotations
-				new ShiroAopModule()
+				//, new ShiroAopModule()
 				
 			);
 	}
