@@ -12,6 +12,18 @@
 			<url>file://${basedir}/repo</url>
 		</repository>
 	</distributionManagement>
+    <!--<distributionManagement>-->
+        <!--<repository>-->
+            <!--<id>aws-release</id>-->
+            <!--<name>AWS Release Repository</name>-->
+            <!--<url>s3://ohba-maven-repo/release</url>-->
+        <!--</repository>-->
+        <!--<snapshotRepository>-->
+            <!--<id>aws-snapshot</id>-->
+            <!--<name>AWS Snapshot Repository</name>-->
+            <!--<url>s3://distribution.bucket/snapshot</url>-->
+        <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
 	<properties>
 		<jersey.version>1.17.1</jersey.version>
 		<jackson.version>1.9.12</jackson.version>
@@ -200,4 +212,14 @@
 		   <url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
 		</repository>
 	</repositories>
+
+    <!--<build>-->
+        <!--<extensions>-->
+            <!--<extension>-->
+                <!--<groupId>org.springframework.build</groupId>-->
+                <!--<artifactId>aws-maven</artifactId>-->
+                <!--<version>4.4.0.RELEASE</version>-->
+            <!--</extension>-->
+        <!--</extensions>-->
+    <!--</build>-->
 </project>
