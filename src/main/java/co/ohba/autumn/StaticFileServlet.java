@@ -1,5 +1,7 @@
 package co.ohba.autumn;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -31,8 +33,12 @@ public class StaticFileServlet extends FileServlet {
 	 */
 	
 	@Override
-	public void init() throws ServletException {
+	public void init() throws ServletException{
 		// no code but we MAY need to inject logic here someday
+        File path = new File(getServletContext().getRealPath(getInitParameter("basePath")));
+        if(!path.exists()){
+            throw new ServletException("Please create a 'public' directory in your webapp folder!");
+        }
 		super.init();
 	}
 	
@@ -46,11 +52,12 @@ public class StaticFileServlet extends FileServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// no code but we MAY need to inject logic here someday
 		if(request.getPathInfo().substring(request.getPathInfo().length() - 1).equals("/")){
+
 			super.doGet(new HttpServletRequestWrapper(request) {
-			    public String getPathInfo() {
-			        return super.getPathInfo().replaceAll("/$", "/index.html");
-			    }
-			}, response);
+                public String getPathInfo() {
+                    return super.getPathInfo().replaceAll("/$", "/index.html");
+                }
+            }, response);
 		}else{
 			super.doGet(request, response);
 		}
