@@ -20,5 +20,7 @@
 		user:'sa',
 		password:''
 	}
+
+    // TODO document securityRealmClass once that pattern is finalized
 	
 }

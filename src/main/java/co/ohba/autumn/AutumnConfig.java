@@ -26,8 +26,10 @@ public class AutumnConfig {
 	private DataStoreType dataStoreType;
 	private Jdbc jdbc;
 	private Mongo mongo;
-	
-	public static enum DataStoreType {
+
+    private String securityRealmClass;
+
+    public static enum DataStoreType {
 		JDBC, MONGO
 	}
 	
