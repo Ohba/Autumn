@@ -1,45 +1,46 @@
 package co.ohba.autumn.persistence;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-
-import javax.persistence.spi.ClassTransformer;
-import javax.persistence.spi.PersistenceUnitInfo;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl;
 import org.eclipse.persistence.internal.jpa.deployment.JPAInitializer;
 import org.eclipse.persistence.internal.jpa.deployment.JavaSECMPInitializer;
 import org.eclipse.persistence.internal.jpa.deployment.SEPersistenceUnitInfo;
+
+import javax.persistence.spi.ClassTransformer;
+import javax.persistence.spi.PersistenceUnitInfo;
+import java.util.*;
+import java.util.Map.Entry;
 
 @Slf4j
 public class AutumnJPAInitializer extends JPAInitializer {
 
 	JavaSECMPInitializer realInitializer;
 	private List<String> clazzesToAdd;
-	
-	public AutumnJPAInitializer(JavaSECMPInitializer jpaInitializer, List<String> clazzesToAdd) {
+    private Map<String,SEPersistenceUnitInfo> puMap = new HashMap<>();
+
+    public AutumnJPAInitializer(JavaSECMPInitializer jpaInitializer, List<String> clazzesToAdd) {
 		this.realInitializer = jpaInitializer;
 		this.clazzesToAdd = clazzesToAdd;
 	}
 	
 	@Override
 	public SEPersistenceUnitInfo findPersistenceUnitInfo(String puName, Map m) {
-		Properties p = new Properties();
-		if(m != null) {
-			for(Entry<Object,Object> e : ((Map<Object,Object>)m).entrySet()) {
-				p.put(e.getKey(), e.getValue());
-			}
-		}
-		log.warn("puname={}, properties={}",puName,p);
-		SEPersistenceUnitInfo pu = realInitializer.findPersistenceUnitInfo(puName, m);
-		log.warn("pu={}",pu);
-		log.warn("pu.managedClasName={}", pu.getManagedClassNames());
-		pu.getManagedClassNames().addAll(clazzesToAdd);
+        SEPersistenceUnitInfo pu = puMap.get(puName);
+        if(pu==null){
+            Properties p = new Properties();
+            if(m != null) {
+                for(Entry<Object,Object> e : ((Map<Object,Object>)m).entrySet()) {
+                    p.put(e.getKey(), e.getValue());
+                }
+            }
+            log.debug("puname={}, properties={}",puName,p);
+            pu = realInitializer.findPersistenceUnitInfo(puName, m);
+            log.debug("pu={} pu.managedClassNames={}", pu, pu.getManagedClassNames());
+            pu.getManagedClassNames().addAll(clazzesToAdd);
+            log.debug("pu={} pu.managedClassNames={}", pu, pu.getManagedClassNames());
+            puMap.put(puName,pu);
+        }
+
 		return pu;
 	}
 

@@ -1,8 +1,6 @@
 package co.ohba.autumn;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import net.balusc.webapp.FileServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -10,16 +8,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
-
-import net.balusc.webapp.FileServlet;
+import java.io.File;
+import java.io.IOException;
 
 /*
  * This is essentially our "Default Servlet"
  * that gets hit after all the guice+jersey filters give up
  */
-@WebServlet(urlPatterns={"/*"},initParams= {@WebInitParam(name="basePath",value="public")})
+//@Slf4j
+@WebServlet(urlPatterns={"/*"}, initParams= {@WebInitParam(name="basePath",value="public")})
 public class StaticFileServlet extends FileServlet {
-	
+
 	/*
 	 * I'm extending this FileServlet so that I don't change it's code thus complying with the GNU Lesser GPL license
 	 * 
@@ -39,6 +38,7 @@ public class StaticFileServlet extends FileServlet {
         if(!path.exists()){
             throw new ServletException("Please create a 'public' directory in your webapp folder!");
         }
+        //log.info("");
 		super.init();
 	}
 	
@@ -56,6 +56,7 @@ public class StaticFileServlet extends FileServlet {
 			super.doGet(new HttpServletRequestWrapper(request) {
                 public String getPathInfo() {
                     return super.getPathInfo().replaceAll("/$", "/index.html");
+                    ///([^\.]*)$     /$0/index.html
                 }
             }, response);
 		}else{

@@ -1,12 +1,7 @@
 package co.ohba.autumn.modules;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.shiro.guice.web.GuiceShiroFilter;
-
 import co.ohba.autumn.AutumnConfig;
-
+import co.ohba.autumn.StaticFileServlet;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
 import com.sun.jersey.api.core.PackagesResourceConfig;
@@ -14,6 +9,10 @@ import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
+import org.apache.shiro.guice.web.GuiceShiroFilter;
+
+import java.util.List;
+import java.util.Map;
 
 public class AutumnJerseyModule extends JerseyServletModule {
 	
@@ -27,6 +26,20 @@ public class AutumnJerseyModule extends JerseyServletModule {
 
 	@Override
 	protected void configureServlets() {
+
+        bindings();
+        filters();
+
+    }
+
+    void bindings() {
+        bind(StaticFileServlet.class).asEagerSingleton();
+        bind(GuiceContainer.class).asEagerSingleton();
+        serve("/*").with(StaticFileServlet.class);
+    }
+
+    void filters() {
+
 		/*
 		 * some of the `autumn.json` config settings are needed to configure jersey
 		 * guice passes the init params to jersey as jersey comes up. 
@@ -47,7 +60,7 @@ public class AutumnJerseyModule extends JerseyServletModule {
 		
 		// by filter-through (instead of serve-with) then requests that guice+jersey
 		// cant handle will be chained along to our default `StaticFileServlet.java`
-		filter("/*").through(GuiceContainer.class, initParams);
+		filter("/api/*").through(GuiceContainer.class, initParams);
 		
 		
 	}
