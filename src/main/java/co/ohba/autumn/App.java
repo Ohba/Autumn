@@ -11,6 +11,9 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import org.apache.bval.guice.ValidationModule;
+import org.apache.shiro.SecurityUtils;
+
+import org.apache.shiro.mgt.SecurityManager;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -28,7 +31,7 @@ public class App extends GuiceServletContextListener {
 	@Override
 	protected Injector getInjector() {
 
-		return Guice.createInjector(
+		Injector inj =  Guice.createInjector(
 				
 				// here we tell guice what system will REALLY be our servlet
 				// cause Guice is more or less just shimmed in the midddle
@@ -49,6 +52,12 @@ public class App extends GuiceServletContextListener {
 				//, new ShiroAopModule()
 				
 			);
+
+
+        SecurityManager securityManager = inj.getInstance(SecurityManager.class);
+        SecurityUtils.setSecurityManager(securityManager);
+
+        return inj;
 	}
 	
 	@Override 

@@ -35,7 +35,9 @@ public class AutumnJerseyModule extends JerseyServletModule {
     void bindings() {
         bind(StaticFileServlet.class).asEagerSingleton();
         bind(GuiceContainer.class).asEagerSingleton();
-        serve("/*").with(StaticFileServlet.class);
+        //serve("/*").with(StaticFileServlet.class);
+
+        AutumnShiroModule.bindGuiceFilter(binder());
     }
 
     void filters() {

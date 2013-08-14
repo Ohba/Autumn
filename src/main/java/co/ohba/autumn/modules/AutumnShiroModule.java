@@ -26,6 +26,7 @@ public class AutumnShiroModule extends ShiroWebModule {
     protected void configureShiroWeb() {
 
         bindConstant().annotatedWith(Names.named("shiro.globalSessionTimeout")).to(30000L);
+        bindConstant().annotatedWith(Names.named("shiro.securityManager.rememberMeManager.cookie.maxAge")).to(30000L);
 
         String realmClzz = atmnCnf.getSecurityRealmClass();
 
